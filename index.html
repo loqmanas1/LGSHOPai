@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد كلمات المرور والأسماء المميزة</title>
+    <style>
+        /* تحسينات للعناوين في القائمة */
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007BFF;
+        }
+
+        /* تحسينات للعنوان */
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* تحسينات للأزرار */
+        .generateButton {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            margin-right: 10px;
+        }
+
+        .generateButton:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* تحسينات للمربع الناتج */
+        #outputBox {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        /* تعيين الصورة الخلفية */
+        body {
+            background-image: url('https://cdn.discordapp.com/attachments/1153951079877328968/1157184901985083432/657cc972425cce67.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#">معلومات عنا</a>
+        <a href="#">الخدمات</a>
+        <a href="#">تواصل معنا</a>
+    </nav>
+    <h1>مولد كلمات المرور والأسماء المميزة</h1>
+    <p>اختر الخدمة:</p>
+    <!-- زر لإنشاء كلمة مرور قوية -->
+    <button class="generateButton" onclick="generatePassword()">إنشاء كلمة مرور</button>
+    <!-- زر لإنشاء اسم مستخدم مميز -->
+    <button class="generateButton" onclick="generateUsername()">إنشاء اسم مستخدم</button>
+    <!-- مربع يعرض كلمة المرور أو الاسم المميز الناتج -->
+    <div id="outputBox">
+        <p>كلمة المرور أو الاسم المميز:</p>
+        <div id="generatedText"></div>
+        <!-- زر لنسخ النص -->
+        <button class="generateButton" id="copyButton" onclick="copyToClipboard()">نسخ</button>
+    </div>
+
+    <script>
+        function generatePassword() {
+            const passwordLength = prompt("أدخل عدد الأحرف لكلمة المرور:");
+            const numberOfResults = prompt("أدخل عدد النتائج التي تريدها:");
+
+            let generatedPasswords = "";
+
+            for (let j = 0; j < numberOfResults; j++) {
+                let password = "";
+                for (let i = 0; i < passwordLength; i++) {
+                    password += getRandomCharacter();
+                }
+                generatedPasswords += password + "<br>";
+            }
+
+            // عرض كلمات المرور القوية
+            document.getElementById("generatedText").innerHTML = generatedPasswords;
+            document.getElementById("outputBox").style.display = "block";
+        }
+
+        function generateUsername() {
+            const nameLength = prompt("أدخل عدد الأحرف لاسم المستخدم:");
+            const numberOfResults = prompt("أدخل عدد النتائج التي تريدها:");
+
+            let generatedUsernames = "";
+
+            for (let j = 0; j < numberOfResults; j++) {
+                let generatedUsername = "";
+                for (let i = 0; i < nameLength; i++) {
+                    generatedUsername += getRandomCharacter();
+                }
+                generatedUsernames += generatedUsername + "<br>";
+            }
+
+            // عرض الاسم المميز
+            document.getElementById("generatedText").innerHTML = generatedUsernames;
+            document.getElementById("outputBox").style.display = "block";
+        }
+
+        function getRandomCharacter() {
+            const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            return characters.charAt(randomIndex);
+        }
+
+        function copyToClipboard() {
+            const textToCopy = document.getElementById("generatedText").innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
